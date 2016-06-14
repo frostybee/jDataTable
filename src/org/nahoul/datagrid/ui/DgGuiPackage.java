@@ -22,15 +22,28 @@ THE SOFTWARE.
 
 */
 
-package org.nahoul.datagrid.ui.table;
+package org.nahoul.datagrid.ui;
 
-import javax.swing.JLabel;
-import javax.swing.table.DefaultTableCellRenderer;
+public class DgGuiPackage {
 
-public class CellCenterAlignRenderer extends DefaultTableCellRenderer {
+    private static DgGuiPackage mSingleInstance;
+    private DgMainFrame mainFrame;
 
-    public CellCenterAlignRenderer() {
-        super();
-        setHorizontalAlignment(JLabel.CENTER);
+    private DgGuiPackage() {
+    }
+
+    public static DgGuiPackage getInstance() {
+        if (mSingleInstance == null) {
+            mSingleInstance = new DgGuiPackage();
+        }
+        return mSingleInstance;
+    }
+
+    public DgMainFrame getMainFrame() {
+        return mainFrame;
+    }
+
+    public void setMainFrame(DgMainFrame mMainFrame) {
+        this.mainFrame = mMainFrame;
     }
 }

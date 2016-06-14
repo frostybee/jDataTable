@@ -22,8 +22,9 @@ THE SOFTWARE.
 
 */
 
-package org.nahoul.datagrid.ui.table;
+package org.nahoul.datagrid.ui.grid;
 
+import org.nahoul.datagrid.core.Functor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -37,9 +38,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author Sleiman Rabah <sleiman.rabah@gmail.com>
  */
-public class DGObjectModel extends DefaultTableModel {
+public class DgObjectModel extends DefaultTableModel {
 
-    private static final Logger log = LoggerFactory.getLogger(DGObjectModel.class);
+    private static final Logger log = LoggerFactory.getLogger(DgObjectModel.class);
     private static final long serialVersionUID = 240L;
     private transient ArrayList<Object> objects = new ArrayList<Object>();
     private transient List<String> headers = new ArrayList<String>();
@@ -59,7 +60,7 @@ public class DGObjectModel extends DefaultTableModel {
      * @param writeFunctors - used to set the values
      * @param editorClasses - class for each column
      */
-    public DGObjectModel(String[] headers, Class<?> _objClass, Functor[] readFunctors, Functor[] writeFunctors, Class<?>[] editorClasses) {
+    public DgObjectModel(String[] headers, Class<?> _objClass, Functor[] readFunctors, Functor[] writeFunctors, Class<?>[] editorClasses) {
         this(headers, readFunctors, writeFunctors, editorClasses);
         this.objectClass = _objClass;
     }
@@ -76,7 +77,7 @@ public class DGObjectModel extends DefaultTableModel {
      * @param cellEditable - if cell must editable (false to allow double click
      * on cell)
      */
-    public DGObjectModel(String[] headers, Class<?> _objClass, Functor[] readFunctors,
+    public DgObjectModel(String[] headers, Class<?> _objClass, Functor[] readFunctors,
             Functor[] writeFunctors, Class<?>[] editorClasses, boolean cellEditable) {
         this(headers, readFunctors, writeFunctors, editorClasses);
         this.objectClass = _objClass;
@@ -92,7 +93,7 @@ public class DGObjectModel extends DefaultTableModel {
      * @param writeFunctors - used to set the values
      * @param editorClasses - class for each column
      */
-    public DGObjectModel(String[] headers, Functor[] readFunctors, Functor[] writeFunctors, Class<?>[] editorClasses) {
+    public DgObjectModel(String[] headers, Functor[] readFunctors, Functor[] writeFunctors, Class<?>[] editorClasses) {
         this.headers.addAll(Arrays.asList(headers));
         this.classes.addAll(Arrays.asList(editorClasses));
         this.readFunctors = new ArrayList<Functor>(Arrays.asList(readFunctors));

@@ -22,26 +22,15 @@ THE SOFTWARE.
 
 */
 
-package org.nahoul.datagrid.ui.table;
+package org.nahoul.datagrid.ui.grid;
 
-import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
 
+public class DgCellCenterAlignRenderer extends DefaultTableCellRenderer {
 
-public final class RendererUtils {
-
-    private RendererUtils() {
-        // uninstantiable
-    }
-
-    public static void applyRenderers(final JTable table, final TableCellRenderer[] renderers) {
-        final TableColumnModel columnModel = table.getColumnModel();
-        for (int i = 0; i < renderers.length; i++) {
-            final TableCellRenderer rend = renderers[i];
-            if (rend != null) {
-                columnModel.getColumn(i).setCellRenderer(rend);
-            }
-        }
+    public DgCellCenterAlignRenderer() {
+        super();
+        setHorizontalAlignment(JLabel.CENTER);
     }
 }

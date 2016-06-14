@@ -22,13 +22,15 @@ THE SOFTWARE.
 
 */
 
-package org.nahoul.datagrid.ui;
+package org.nahoul.datagrid.ui.grid;
 
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
 
-public class AppConstants {
-    //--
-    public static final String BTN_CLEAR =  "edit-clear-3.png";
-    public static final String NODE_VNET_ICON =  "network-receive.png";
-    public static final String APP_ICON =   "drive-sheets-icon.png";
-    public static String IMAGES_FOLDER =  "images/" ;
+public class DgCellLeftAlignRenderer extends DefaultTableCellRenderer {
+
+    public DgCellLeftAlignRenderer() {
+        super();
+        setHorizontalAlignment(JLabel.LEFT);
+    }
 }

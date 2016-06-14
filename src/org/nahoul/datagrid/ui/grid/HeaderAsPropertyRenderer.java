@@ -22,7 +22,7 @@ THE SOFTWARE.
 
 */
 
-package org.nahoul.datagrid.ui.table;
+package org.nahoul.datagrid.ui.grid;
 
 import java.awt.Component;
 import java.awt.Font;

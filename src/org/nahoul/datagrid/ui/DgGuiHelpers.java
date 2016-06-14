@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 package org.nahoul.datagrid.ui;
 
+import org.nahoul.datagrid.core.AppConstants;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
@@ -40,9 +41,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
  
-public class GuiHelpers {
+public class DgGuiHelpers {
 
-    private static final Logger log = LoggerFactory.getLogger(GuiHelpers.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(DgGuiHelpers.class.getName());
 
     public static void centerComponentInWindow(Component component, int percentOfScreen) {
         if (percentOfScreen < 0) {
@@ -99,28 +100,28 @@ public class GuiHelpers {
     }
 
     public static void showError(String message, String title) {
-        JOptionPane.showMessageDialog(GuiPackage.getInstance().getMainFrame(),
+        JOptionPane.showMessageDialog(DgGuiPackage.getInstance().getMainFrame(),
                 message,
                 title,
                 JOptionPane.ERROR_MESSAGE);
     }
 
     public static void showWarning(String message, String title) {
-        JOptionPane.showMessageDialog(GuiPackage.getInstance().getMainFrame(),
+        JOptionPane.showMessageDialog(DgGuiPackage.getInstance().getMainFrame(),
                 message,
                 title,
                 JOptionPane.WARNING_MESSAGE);
     }
 
     public static void showSuccess(String message, String title) {
-        JOptionPane.showMessageDialog(GuiPackage.getInstance().getMainFrame(),
+        JOptionPane.showMessageDialog(DgGuiPackage.getInstance().getMainFrame(),
                 message,
                 title,
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
     public static boolean confirmQ(String msg, String title) {
-        return (JOptionPane.showConfirmDialog(GuiPackage.getInstance().getMainFrame(), msg, title,
+        return (JOptionPane.showConfirmDialog(DgGuiPackage.getInstance().getMainFrame(), msg, title,
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION);
     }
 
@@ -155,7 +156,7 @@ public class GuiHelpers {
 
     public static ImageIcon getImage(String name) {
         try {
-            URL url = GuiHelpers.class.getClassLoader().getResource(
+            URL url = DgGuiHelpers.class.getClassLoader().getResource(
                     AppConstants.IMAGES_FOLDER+ name.trim());
             if (url != null) {
                 return new ImageIcon(url); // $NON-NLS-1$

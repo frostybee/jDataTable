@@ -13,7 +13,7 @@ The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -23,8 +23,8 @@ THE SOFTWARE.
 */
 package org.nahoul.datagrid;
 
-import org.nahoul.datagrid.ui.DGMainFrame;
-import org.nahoul.datagrid.ui.GuiHelpers;
+import org.nahoul.datagrid.ui.DgMainFrame;
+import org.nahoul.datagrid.ui.DgGuiHelpers;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import javax.swing.JDialog;
@@ -33,9 +33,9 @@ import javax.swing.UIManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JDataGrid {
+public class DgApp {
 
-    private static final Logger log = LoggerFactory.getLogger(JDataGrid.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(DgApp.class.getName());
 
     private static void startGUI() {
         try {
@@ -48,31 +48,31 @@ public class JDataGrid {
                 }
             }
         } catch (Exception ex) {
-            System.out.println("Failed to load Look and Feel....");
-            System.out.println(ex.getMessage());
+            System.err.println("Failed to load Look and Feel....");
+            System.err.println(ex.getMessage());
         }
-
         try {
 
-            DGMainFrame mainFrame = new DGMainFrame();
-            mainFrame.setVisible(true);
-            mainFrame.validate();
+            DgMainFrame uiMainFrame = new DgMainFrame();
+            uiMainFrame.setVisible(true);
+            uiMainFrame.validate();
             //-- Center the main frame.
-            GuiHelpers.centerComponentInWindow(mainFrame, 70);
+            DgGuiHelpers.centerComponentInWindow(uiMainFrame, 70);
         } catch (Exception e) {
+            System.err.println("Failed to initialize application...");
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
         try {
+            //-- Configure Log4J's app loger.
             LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
             JoranConfigurator jc = new JoranConfigurator();
             jc.setContext(context);
-            context.reset(); // override default configuration
-            // inject the name of the current application as "application-name"
-            // property of the LoggerContext
-            context.putProperty("application-name", "Data Grid");
+            context.reset(); 
+            // inject the name of the current application as "application-name"            
+            context.putProperty("application-name", "Nahoul's Data Grid");
             jc.doConfigure("logback.xml");
             log.info("Starting GUI...");
             startGUI();

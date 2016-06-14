@@ -22,28 +22,26 @@ THE SOFTWARE.
 
 */
 
-package org.nahoul.datagrid.ui;
+package org.nahoul.datagrid.ui.grid;
 
-public class GuiPackage {
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
-    private static GuiPackage mSingleInstance;
-    private DGMainFrame mainFrame;
 
-    private GuiPackage() {
+public final class DgRendererUtils {
+
+    private DgRendererUtils() {
+        // uninstantiable
     }
 
-    public static GuiPackage getInstance() {
-        if (mSingleInstance == null) {
-            mSingleInstance = new GuiPackage();
+    public static void applyRenderers(final JTable table, final TableCellRenderer[] renderers) {
+        final TableColumnModel columnModel = table.getColumnModel();
+        for (int i = 0; i < renderers.length; i++) {
+            final TableCellRenderer rend = renderers[i];
+            if (rend != null) {
+                columnModel.getColumn(i).setCellRenderer(rend);
+            }
         }
-        return mSingleInstance;
-    }
-
-    public DGMainFrame getMainFrame() {
-        return mainFrame;
-    }
-
-    public void setMainFrame(DGMainFrame mMainFrame) {
-        this.mainFrame = mMainFrame;
     }
 }

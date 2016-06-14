@@ -22,10 +22,11 @@ THE SOFTWARE.
 
 */
 
-package org.nahoul.datagrid.ui.table;
+package org.nahoul.datagrid.ui.grid;
 
+import org.nahoul.datagrid.core.Functor;
 import org.nahoul.datagrid.core.PersonInfo;
-import org.nahoul.datagrid.ui.GuiHelpers;
+import org.nahoul.datagrid.ui.DgGuiHelpers;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -51,9 +52,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
  
-public class DGDataTable implements ActionListener {
+public class DgDataTable implements ActionListener {
 
-    private static final Logger log = LoggerFactory.getLogger(DGDataTable.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(DgDataTable.class.getName());
     private JButton btnLoadItems;
     private JButton btnDelete;
     private JButton btnEdit;
@@ -64,12 +65,12 @@ public class DGDataTable implements ActionListener {
     private JPanel mjpTablePanel;
     private JPopupMenu mnPopUpMenu;
     //--
-    private DGObjectModel mTableModel;
+    private DgObjectModel mTableModel;
     private Object mLock = new Object();
     //-- Image objects.
-    private static final ImageIcon imageSuccess = GuiHelpers.getImage(
+    private static final ImageIcon imageSuccess = DgGuiHelpers.getImage(
             "dialog-ok.png", "Processed");
-    private static final ImageIcon imageFailure = GuiHelpers.getImage(
+    private static final ImageIcon imageFailure = DgGuiHelpers.getImage(
             "error.png", "Not Processed");
     //-- Column names.
     private static final String[] mTableColumns = {
@@ -83,28 +84,28 @@ public class DGDataTable implements ActionListener {
     // Column renderers
     private static final TableCellRenderer[] mCellRenderers
             = new TableCellRenderer[]{
-                new CellLeftAlignRenderer(), // Label
-                new CellLeftAlignRenderer(), // Description
+                new DgCellLeftAlignRenderer(), // Label
+                new DgCellLeftAlignRenderer(), // Description
                 null, // Mean        
                 null
             };
 
-    public DGDataTable() {
+    public DgDataTable() {
         super();
         init();
     }
 
     private void init() {
 
-        mTableModel = new DGObjectModel(mTableColumns,
+        mTableModel = new DgObjectModel(mTableColumns,
                 PersonInfo.class,
                 new Functor[]{
                     new Functor("getPersonID"),
                     new Functor("getFirstName"),
                     new Functor("getLastName"),
                     new Functor("getEmail"),
-                    new DGDataTable.SampleSuccessFunctor("isAccepted"),
-                    new DGDataTable.SampleSuccessFunctor("isProcessed"),},
+                    new DgDataTable.SampleSuccessFunctor("isAccepted"),
+                    new DgDataTable.SampleSuccessFunctor("isProcessed"),},
                 new Functor[]{null, null, null, null},
                 new Class[]{String.class,
                     String.class,
@@ -118,7 +119,7 @@ public class DGDataTable implements ActionListener {
     }
 
     public void clearData() {
-        if (GuiHelpers.confirmQ("Do you really want to remove all table items?", "Confirm Clear Items")) {
+        if (DgGuiHelpers.confirmQ("Do you really want to remove all table items?", "Confirm Clear Items")) {
             synchronized (mLock) {
                 log.info("Clearing items...");
                 mTableModel.clearData();
@@ -134,24 +135,24 @@ public class DGDataTable implements ActionListener {
         //--
         mjtItemTable = new JTable(mTableModel);
         mjtItemTable.getTableHeader().setDefaultRenderer(new HeaderAsPropertyRenderer());
-        mjtItemTable.setDefaultRenderer(String.class, new CellCenterAlignRenderer());
+        mjtItemTable.setDefaultRenderer(String.class, new DgCellCenterAlignRenderer());
         mjtItemTable.setPreferredScrollableViewportSize(new Dimension(500, 440));
         mjtItemTable.getColumnModel().getColumn(0).setPreferredWidth(150);
         mjtItemTable.getColumnModel().getColumn(1).setPreferredWidth(130);
         //--
         JPanel tablePanel = new JPanel(new BorderLayout());
         //--
-        mTableScrollPane = GuiHelpers.makeScrollPane(tablePanel);
+        mTableScrollPane = DgGuiHelpers.makeScrollPane(tablePanel);
         mTableScrollPane.setRowHeaderView(tablePanel);
         mTableScrollPane.setCorner(
                 JScrollPane.UPPER_LEFT_CORNER,
                 mjtItemTable.getTableHeader());
         mTableScrollPane.setViewportBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         //...
-        RendererUtils.applyRenderers(mjtItemTable, mCellRenderers);
+        DgRendererUtils.applyRenderers(mjtItemTable, mCellRenderers);
         //...
         tablePanel.add(mjtItemTable.getTableHeader(), BorderLayout.PAGE_START);
-        tablePanel.add(GuiHelpers.makeScrollPane(mjtItemTable), BorderLayout.CENTER);
+        tablePanel.add(DgGuiHelpers.makeScrollPane(mjtItemTable), BorderLayout.CENTER);
         //--
         mjpTablePanel.add(tablePanel, BorderLayout.CENTER);
         mjpTablePanel.add(makeControlPanel(), BorderLayout.SOUTH);
@@ -309,7 +310,7 @@ public class DGDataTable implements ActionListener {
         }
         int rowSelected = mjtItemTable.getSelectedRow();
         if (rowSelected >= 0) {
-            if (GuiHelpers.confirmQ("Are you sure you want to delete this item?", "Confirm Delete Item")) {
+            if (DgGuiHelpers.confirmQ("Are you sure you want to delete this item?", "Confirm Delete Item")) {
                 //--
                 //--
                 if (mTableModel.getRowCount() == 0) {
@@ -326,7 +327,7 @@ public class DGDataTable implements ActionListener {
                 }
             }
         } else {
-            GuiHelpers.showWarning("You must select a resource to delete!", "Delete Resource");
+            DgGuiHelpers.showWarning("You must select a resource to delete!", "Delete Resource");
 
         }
     }
@@ -355,7 +356,7 @@ public class DGDataTable implements ActionListener {
             PersonInfo item = (PersonInfo) mTableModel.getValueAt(rowIndex);
             log.info("Editting item: " + item.getFirstName());
         } else {
-            GuiHelpers.showWarning("Please select a row to edit", "Edit Item");
+            DgGuiHelpers.showWarning("Please select a row to edit", "Edit Item");
         }
     }
 

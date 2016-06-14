@@ -22,7 +22,7 @@ THE SOFTWARE.
 
 */
 
-package org.nahoul.datagrid.ui.table;
+package org.nahoul.datagrid.core;
 
 import java.lang.reflect.Method;
 import org.slf4j.Logger;

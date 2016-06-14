@@ -20,17 +20,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-*/
+ */
+package org.nahoul.datagrid.core;
 
-package org.nahoul.datagrid.ui.table;
+public class AppConstants {
 
-import javax.swing.JLabel;
-import javax.swing.table.DefaultTableCellRenderer;
+    //--    
+    public static final String BTN_CLEAR = "edit-clear-3.png";
+    public static final String NODE_VNET_ICON = "network-receive.png";
+    public static final String APP_ICON = "drive-sheets-icon.png";
+    public static String IMAGES_FOLDER = "resources/images/";
 
-public class CellLeftAlignRenderer extends DefaultTableCellRenderer {
-
-    public CellLeftAlignRenderer() {
-        super();
-        setHorizontalAlignment(JLabel.LEFT);
-    }
 }
