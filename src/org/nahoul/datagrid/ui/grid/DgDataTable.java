@@ -119,7 +119,7 @@ public class DgDataTable implements ActionListener {
     }
 
     public void clearData() {
-        if (DgGuiHelpers.confirmQ("Do you really want to remove all table items?", "Confirm Clear Items")) {
+        if (DgGuiHelpers.confirmQuestion("Do you really want to remove all table items?", "Confirm Clear Items")) {
             synchronized (mLock) {
                 log.info("Clearing items...");
                 mTableModel.clearData();
@@ -288,17 +288,22 @@ public class DgDataTable implements ActionListener {
 
     private void moveDown() {
         int[] rowsSelected = mjtItemTable.getSelectedRows();
-        if (rowsSelected.length > 0 && rowsSelected[rowsSelected.length - 1] < mjtItemTable.getRowCount() - 1) {
+        if (rowsSelected.length > 0 && rowsSelected[rowsSelected.length - 1] < mjtItemTable.getRowCount() - 1) {        
             mjtItemTable.clearSelection();
             int rowSelected = rowsSelected[0];
             mjtItemTable.addRowSelectionInterval(rowSelected + 1, rowSelected + 1);
 
         } else {
-            //-- No row has been selected!
+            int rowCount = mTableModel.getRowCount();
+            if (rowCount > 0) {
+                mjtItemTable.clearSelection();
+                mjtItemTable.addRowSelectionInterval(rowCount - 1, rowCount - 1);
+            }
+            /*//-- No row has been selected!
             if (mTableModel.getRowCount() == 0) {
                 mjtItemTable.clearSelection();
                 mjtItemTable.addRowSelectionInterval(0, 0);
-            }
+            }*/
         }
     }
 
@@ -310,7 +315,7 @@ public class DgDataTable implements ActionListener {
         }
         int rowSelected = mjtItemTable.getSelectedRow();
         if (rowSelected >= 0) {
-            if (DgGuiHelpers.confirmQ("Are you sure you want to delete this item?", "Confirm Delete Item")) {
+            if (DgGuiHelpers.confirmQuestion("Are you sure you want to delete this item?", "Confirm Delete Item")) {
                 //--
                 //--
                 if (mTableModel.getRowCount() == 0) {

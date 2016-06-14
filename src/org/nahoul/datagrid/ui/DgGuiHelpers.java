@@ -120,7 +120,7 @@ public class DgGuiHelpers {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public static boolean confirmQ(String msg, String title) {
+    public static boolean confirmQuestion(String msg, String title) {
         return (JOptionPane.showConfirmDialog(DgGuiPackage.getInstance().getMainFrame(), msg, title,
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION);
     }
@@ -154,20 +154,26 @@ public class DgGuiHelpers {
         return icon;
     }
 
+    /**
+     * Loads an image specified by its name.
+     * 
+     * @param name the name of the image/icon to load.
+     * @return the URL of the loaded image, null otherwise. 
+     */
     public static ImageIcon getImage(String name) {
         try {
             URL url = DgGuiHelpers.class.getClassLoader().getResource(
                     AppConstants.IMAGES_FOLDER+ name.trim());
             if (url != null) {
-                return new ImageIcon(url); // $NON-NLS-1$
+                return new ImageIcon(url); 
             } else {
                 log.warn("no icon for " + name);
                 return null;
             }
-        } catch (NoClassDefFoundError e) {// Can be returned by headless hosts
+        } catch (NoClassDefFoundError e) {
             log.info("no icon for " + name + " " + e.getMessage());
             return null;
-        } catch (InternalError e) {// Can be returned by headless hosts
+        } catch (InternalError e) {
             log.info("no icon for " + name + " " + e.getMessage());
             return null;
         }
